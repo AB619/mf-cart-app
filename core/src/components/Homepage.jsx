@@ -1,31 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../store/slices/cartSlice';
 
 function Homepage() {
+  const dispatch = useDispatch();
+
+  const itemList = [
+    {
+      id: 1,
+      img: "https://picsum.photos/id/1/200/300",
+      name: "Product 1",
+      desciption: 'Lorem Ipsum Lorem Ipsum'
+    },
+    {
+      id: 2,
+      img: "https://picsum.photos/id/10/200/300",
+      name: "Product 2",
+      desciption: 'Ipsum Lorem Ipsum Lorem'
+    },
+    {
+      id: 3,
+      img: "https://picsum.photos/seed/picsum/200/300",
+      name: "Product 3",
+      desciption: 'Lorem Ipsum Lorem Ipsum'
+    },
+    {
+      id: 4,
+      img: "https://picsum.photos/id/237/200/300",
+      name: "Product 4",
+      desciption: 'Ipsum Lorem Ipsum Lorem'
+    }
+  ]
+
   return (
     <div className='m-4'>
-    <h4 className='m-3'><Badge bg="dark">In Hoouse Products</Badge></h4>
-    <Row xs={1} sm={2} md={4} className="g-4">
-      {Array.from({ length: 4 }).map((_, idx) => (
-        <Col key={idx} style={{ display: "flex", justifyContent: "center" }}>
-          <Card style={{ width: '18rem' }} bg="dark" text="light">
-            <Card.Img variant="top" src="https://picsum.photos/200" />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up the
-                bulk of the card's content.
-              </Card.Text>
-              <Button variant="light">Add to Cart</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+      <h4 className='m-3'><Badge bg="dark">In-House Product List</Badge></h4>
+      <Row xs={1} sm={2} md={4} className="g-4">
+        {itemList.map((item) => (
+          <Col key={item.id} style={{ display: "flex", justifyContent: "center" }}>
+            <Card style={{ width: '18rem' }} bg="dark" text="light">
+              <Card.Img variant="top" src={item.img} />
+              <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+                <Card.Text>
+                  {item.desciption}
+                </Card.Text>
+                <Button variant="light" onClick={() => dispatch(addItemToCart(item))}>Add to Cart</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   )
 }
