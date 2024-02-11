@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const App = () => {
     const cart = useSelector((state) => state.cart.value);
@@ -31,7 +32,21 @@ const App = () => {
                         </Col>
                     ))}
                 </Row>
-                <Button variant="light">Proceed to Payment</Button>
+                    <Row xs={1} sm={6} className="g-4 my-4">
+                        <Col>
+                        
+                        <Form.Select aria-label="Select Payment" style={{ backgroundColor: "#212529", color: "white"}}>
+                            <option value="paytm">Paytm</option>
+                            <option value="payu">Payu</option>
+                            <option value="phonepe">Phonpe</option>
+                            <option value="google_pay">Google Pay</option>
+                        </Form.Select>
+                        
+                        </Col>
+                        <Col>
+                        <Button variant="dark" className="mx-2">Proceed to Payment</Button>
+                        </Col>
+                    </Row>
                 </> :
                 <Alert variant="dark">
                     <Alert.Heading>Hey, Nice to see you!!</Alert.Heading>
