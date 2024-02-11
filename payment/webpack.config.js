@@ -39,8 +39,7 @@ module.exports = {
       name: "payment",
       filename: "remoteEntry.js",
       remotes: {
-        "core": `core@http://localhost:3000/remoteEntry.js`,
-        "payment": `payment@http://localhost:3002/remoteEntry.js`
+        "core": `core@https://ab619.github.io/mf-cart-app/core/remoteEntry.js`,  //http://localhost:3000
       },
       exposes: {
         "./PaymentPage": "./src/App"
