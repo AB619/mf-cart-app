@@ -1,12 +1,63 @@
-import React from "react";
+import React from 'react';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Badge from 'react-bootstrap/Badge';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from 'core/Slice';
 
-const App = () =>{
-    return (
-        <h1>
-            Hello world! I am using React in Product App!
-        </h1>
-    )
+function App() {
+  const dispatch = useDispatch();
+
+  const itemList = [
+    {
+      id: 5,
+      img: "https://picsum.photos/seed/picsum/200/300",
+      name: "Product 1 - ext",
+      desciption: 'Lorem Ipsum Lorem Ipsum'
+    },
+    {
+      id: 6,
+      img: "https://picsum.photos/id/237/200/300",
+      name: "Product 2 - ext",
+      desciption: 'Ipsum Lorem Ipsum Lorem'
+    },
+    {
+      id: 7,
+      img: "https://picsum.photos/id/1/200/300",
+      name: "Product 3 - ext",
+      desciption: 'Lorem Ipsum Lorem Ipsum'
+    },
+    {
+      id: 8,
+      img: "https://picsum.photos/id/10/200/300",
+      name: "Product 4 - ext",
+      desciption: 'Ipsum Lorem Ipsum Lorem'
+    }
+  ]
+
+  return (
+    <div className='m-4'>
+      <h4 className='m-3'><Badge bg="dark">External Product List</Badge></h4>
+      <Row xs={1} sm={2} md={4} className="g-4">
+        {itemList.map((item) => (
+          <Col key={item.id} style={{ display: "flex", justifyContent: "center" }}>
+            <Card style={{ width: '18rem' }} bg="dark" text="light">
+              <Card.Img variant="top" src={item.img} />
+              <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+                <Card.Text>
+                  {item.desciption}
+                </Card.Text>
+                <Button variant="light" onClick={() => dispatch(addItemToCart(item))}>Add to Cart</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  )
 }
 
 export default App;
-
