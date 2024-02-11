@@ -6,9 +6,17 @@ import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from 'core/Slice';
+import Spinner from 'react-bootstrap/Spinner';
 
 function App() {
   const dispatch = useDispatch();
+  const [ isLoading, setLoading ] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+  },[])
 
   const itemList = [
     {
@@ -44,7 +52,8 @@ function App() {
   return (
     <div className='m-4'>
       <h4 className='m-3'><Badge bg="dark">External Product List</Badge></h4>
-      <Row xs={1} sm={2} md={4} className="g-4">
+      <Spinner animation="border" variant="dark" style={{ visibility: !isLoading ? "hidden" : "visible" }}/>
+      <Row xs={1} sm={2} md={4} className="g-4" style={{ visibility: isLoading ? "hidden" : "visible" }}>
         {itemList.map((item) => (
           <Col key={item.id} style={{ display: "flex", justifyContent: "center" }}>
             <Card style={{ width: '18rem' }} bg="dark" text="light">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import { useSelector } from 'react-redux';
@@ -7,28 +7,30 @@ import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 const App = () => {
     const cart = useSelector((state) => state.cart.value);
-    const [productItems , setProductItems] = React.useState();
+    const [productItems, setProductItems] = useState();
+    const [modalShow, setModalShow] = useState(false);
     const getUniqueCartValues = (cart) => {
-        let resArr  = [];
-        cart.filter(function(item){
+        let resArr = [];
+        cart.filter(function (item) {
             let i = resArr.findIndex(x => (x.id == item.id));
-            if(i <= -1){
-                resArr.push({...item, qty: 1});
+            if (i <= -1) {
+                resArr.push({ ...item, qty: 1 });
             }
-            else{
+            else {
                 resArr[i].qty = resArr[i].qty ? resArr[i].qty + 1 : 1;
-            } 
+            }
             return null;
-          });
-          return resArr;
+        });
+        return resArr;
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         setProductItems(getUniqueCartValues(cart))
-    },[]);
+    }, [cart]);
 
     return (
         <div className="m-4">
@@ -52,18 +54,32 @@ const App = () => {
                 </Row>
                     <Row xs={1} sm={6} className="g-4 my-4">
                         <Col>
-                        
-                        <Form.Select aria-label="Select Payment" style={{ backgroundColor: "#212529", color: "white"}}>
-                            <option value="paytm">Paytm</option>
-                            <option value="payu">Payu</option>
-                            <option value="phonepe">Phonpe</option>
-                            <option value="google_pay">Google Pay</option>
-                        </Form.Select>
-                        
+
+                            <Form.Select aria-label="Select Payment" style={{ backgroundColor: "#212529", color: "white" }}>
+                                <option value="paytm">Paytm</option>
+                                <option value="payu">Payu</option>
+                                <option value="phonepe">Phonpe</option>
+                                <option value="google_pay">Google Pay</option>
+                            </Form.Select>
+
                         </Col>
                         <Col>
-                        <Button variant="dark" className="mx-2">Proceed</Button>
+                            <Button variant="dark" className="mx-2" onClick={() => setModalShow(true)}>Proceed</Button>
                         </Col>
+                        <Modal
+                            size="sm"
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            aria-labelledby="game-over"
+                            data-bs-theme="dark"
+                            style={{ color: "white"}}
+                        >
+                            <Modal.Header>
+                                <Modal.Title id="game-over">
+                                    Game Over!!
+                                </Modal.Title>
+                            </Modal.Header>
+                        </Modal>
                     </Row>
                 </> :
                 <Alert variant="dark">

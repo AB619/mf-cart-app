@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -6,9 +6,17 @@ import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../store/slices/cartSlice';
+import Spinner from 'react-bootstrap/Spinner';
 
 function Homepage() {
   const dispatch = useDispatch();
+  const [ isLoading, setLoading ] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+  },[])
 
   const itemList = [
     {
@@ -44,11 +52,12 @@ function Homepage() {
   return (
     <div className='m-4'>
       <h4 className='m-3'><Badge bg="dark">In-House Product List</Badge></h4>
-      <Row xs={1} sm={2} md={4} className="g-4">
+      <Spinner animation="border" variant="dark" style={{ visibility: !isLoading ? "hidden" : "visible" }}/>
+      <Row xs={1} sm={2} md={4} className="g-4" style={{ visibility: isLoading ? "hidden" : "visible" }}>
         {itemList.map((item) => (
           <Col key={item.id} style={{ display: "flex", justifyContent: "center" }}>
             <Card style={{ width: '18rem' }} bg="dark" text="light">
-              <Card.Img variant="top" src={item.img} />
+              <Card.Img variant="top" src={item.img}/>
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>
