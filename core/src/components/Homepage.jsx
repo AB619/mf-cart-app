@@ -13,24 +13,28 @@ function Homepage() {
   const itemList = [
     {
       id: 1,
+      type: 'In-House Product',
       img: "https://picsum.photos/id/1/200/300",
       name: "Product 1",
       desciption: 'Lorem Ipsum Lorem Ipsum'
     },
     {
       id: 2,
+      type: 'In-House Product',
       img: "https://picsum.photos/id/10/200/300",
       name: "Product 2",
       desciption: 'Ipsum Lorem Ipsum Lorem'
     },
     {
       id: 3,
+      type: 'In-House Product',
       img: "https://picsum.photos/seed/picsum/200/300",
       name: "Product 3",
       desciption: 'Lorem Ipsum Lorem Ipsum'
     },
     {
       id: 4,
+      type: 'In-House Product',
       img: "https://picsum.photos/id/237/200/300",
       name: "Product 4",
       desciption: 'Ipsum Lorem Ipsum Lorem'

@@ -13,24 +13,28 @@ function App() {
   const itemList = [
     {
       id: 5,
+      type: 'External Product',
       img: "https://picsum.photos/seed/picsum/200/300",
       name: "Product 1 - ext",
       desciption: 'Lorem Ipsum Lorem Ipsum'
     },
     {
       id: 6,
+      type: 'External Product',
       img: "https://picsum.photos/id/237/200/300",
       name: "Product 2 - ext",
       desciption: 'Ipsum Lorem Ipsum Lorem'
     },
     {
       id: 7,
+      type: 'External Product',
       img: "https://picsum.photos/id/1/200/300",
       name: "Product 3 - ext",
       desciption: 'Lorem Ipsum Lorem Ipsum'
     },
     {
       id: 8,
+      type: 'External Product',
       img: "https://picsum.photos/id/10/200/300",
       name: "Product 4 - ext",
       desciption: 'Ipsum Lorem Ipsum Lorem'
