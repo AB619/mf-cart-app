@@ -10,13 +10,32 @@ import Form from 'react-bootstrap/Form';
 
 const App = () => {
     const cart = useSelector((state) => state.cart.value);
+    const [productItems , setProductItems] = React.useState();
+    const getUniqueCartValues = (cart) => {
+        let resArr  = [];
+        cart.filter(function(item){
+            let i = resArr.findIndex(x => (x.id == item.id));
+            if(i <= -1){
+                resArr.push({...item, qty: 1});
+            }
+            else{
+                resArr[i].qty = resArr[i].qty ? resArr[i].qty + 1 : 1;
+            } 
+            return null;
+          });
+          return resArr;
+    }
+
+    React.useEffect(() => {
+        setProductItems(getUniqueCartValues(cart))
+    },[]);
 
     return (
         <div className="m-4">
             <h4 className='m-3'><Badge bg="dark">Cart Items: {cart.length}</Badge></h4>
-            {cart && cart.length > 0 ?
+            {productItems && productItems.length > 0 ?
                 <><Row xs={1} sm={2} md={5} className="g-4">
-                    {cart.map((item) => (
+                    {productItems.map((item) => (
                         <Col key={item.id} style={{ display: "flex", justifyContent: "center" }}>
                             <Card style={{ width: '18rem' }} bg="dark" text="light">
                                 <Card.Header variant="dark">{item.type}</Card.Header>
@@ -24,9 +43,8 @@ const App = () => {
                                     <Card.Title>{item.name}</Card.Title>
                                     <Card.Text>
                                         {item.desciption}
-                                        <div>{`Quantity: 4`}</div>
                                     </Card.Text>
-
+                                    <Card.Text>{`Quantity: ${item.qty}`}</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -44,20 +62,19 @@ const App = () => {
                         
                         </Col>
                         <Col>
-                        <Button variant="dark" className="mx-2">Proceed to Payment</Button>
+                        <Button variant="dark" className="mx-2">Proceed</Button>
                         </Col>
                     </Row>
                 </> :
                 <Alert variant="dark">
                     <Alert.Heading>Hey, Nice to see you!!</Alert.Heading>
                     <h5>No items to display in your cart yet.</h5>
-                    <p>
+                    <span>
                         There is nothing added in your cart. Pls navigate to home/product page and add some products from <strong>AB-KART</strong>.
-                    </p>
+                    </span>
                 </Alert>
             }
         </div>
     )
 }
-
 export default App;
